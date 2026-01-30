@@ -1,5 +1,5 @@
 {
-	"name": "DS_ADLS_SOURCE_CSV",
+	"name": "DS_ADLS_TARGET_CSV",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStorage_01",
@@ -13,8 +13,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "iris.csv",
-				"folderPath": "raw_folder",
+				"fileName": "COPIED_EMP_DS",
+				"folderPath": "Archive-folder",
 				"fileSystem": "raw-dataset"
 			},
 			"columnDelimiter": ",",
