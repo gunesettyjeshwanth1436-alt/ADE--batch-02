@@ -1,0 +1,9 @@
+{
+	"name": "Jeshwanth",
+	"location": "centralus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "42a21ee3-68d8-4990-b5da-cfd9d402d760",
+		"tenantId": "fe0a96ff-6cd5-4a98-81da-24219df46be0"
+	}
+}
