@@ -5,17 +5,11 @@
 		"factoryName": {
 			"value": "Jeshwanth"
 		},
-		"GitHub_linked_accountKey": {
+		"AzureDataLakeStorage_01_accountKey": {
 			"value": ""
 		},
-		"GitHub_linkedservice_credential": {
-			"value": ""
-		},
-		"GitHub_linked_properties_typeProperties_url": {
+		"AzureDataLakeStorage_01_properties_typeProperties_url": {
 			"value": "https://jeshustorageaccount.dfs.core.windows.net/"
-		},
-		"GitHub_linkedservice_properties_typeProperties_username": {
-			"value": "gunesettyjeshwanth1436-alt"
 		},
 		"containerUri": {
 			"value": ""

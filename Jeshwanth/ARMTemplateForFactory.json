@@ -7,21 +7,13 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "Jeshwanth"
 		},
-		"GitHub_linked_accountKey": {
+		"AzureDataLakeStorage_01_accountKey": {
 			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'GitHub_linked'"
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage_01'"
 		},
-		"GitHub_linkedservice_credential": {
-			"type": "secureString",
-			"metadata": "Secure string for 'credential' of 'GitHub_linkedservice'"
-		},
-		"GitHub_linked_properties_typeProperties_url": {
+		"AzureDataLakeStorage_01_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://jeshustorageaccount.dfs.core.windows.net/"
-		},
-		"GitHub_linkedservice_properties_typeProperties_username": {
-			"type": "string",
-			"defaultValue": "gunesettyjeshwanth1436-alt"
 		}
 	},
 	"variables": {
@@ -29,39 +21,227 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/GitHub_linked')]",
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage_01')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
 				"type": "AzureBlobFS",
 				"typeProperties": {
-					"url": "[parameters('GitHub_linked_properties_typeProperties_url')]",
+					"url": "[parameters('AzureDataLakeStorage_01_properties_typeProperties_url')]",
 					"accountKey": {
 						"type": "SecureString",
-						"value": "[parameters('GitHub_linked_accountKey')]"
+						"value": "[parameters('AzureDataLakeStorage_01_accountKey')]"
 					}
 				}
 			},
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/GitHub_linkedservice')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"name": "[concat(parameters('factoryName'), '/DS_ADLS_SOURCE_CSV')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage_01",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "ADLS_CONTAINER"
+				},
 				"annotations": [],
-				"type": "GitHub",
+				"type": "DelimitedText",
 				"typeProperties": {
-					"username": "[parameters('GitHub_linkedservice_properties_typeProperties_username')]",
-					"credential": {
-						"type": "SecureString",
-						"value": "[parameters('GitHub_linkedservice_credential')]"
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "iris.csv",
+						"folderPath": "raw_folder",
+						"fileSystem": "raw-dataset"
 					},
-					"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDNGOEM3NjEzLTk3OUYtNDQyMS1CRDg4LUYzQUI1QTMyRDdFMl83M2JmMDQ4Ni0zZTM2LTQ3ZWYtYmE4ZC1mYjdmY2E0NTIzODQiDQp9"
-				}
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage_01')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PL_COPY_CSV_FILE')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy_CSV_FILE",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "sepal.length",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "sepal.length",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "sepal.width",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "sepal.width",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "petal.length",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "petal.length",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "petal.width",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "petal.width",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "variety",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "variety",
+											"type": "String",
+											"physicalType": "String"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_ADLS_SOURCE_CSV",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_ADLS_TARGET_CSV",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "DATA_MIGRATION_TASKS"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_ADLS_SOURCE_CSV')]",
+				"[concat(variables('factoryId'), '/datasets/DS_ADLS_TARGET_CSV')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_ADLS_TARGET_CSV')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage_01",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "ADLS_CONTAINER"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "COPIED_EMP_DS",
+						"folderPath": "Archive-folder",
+						"fileSystem": "raw-dataset"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage_01')]"
+			]
 		}
 	]
 }

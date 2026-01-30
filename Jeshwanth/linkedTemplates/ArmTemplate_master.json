@@ -7,21 +7,13 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "Jeshwanth"
 		},
-		"GitHub_linked_accountKey": {
+		"AzureDataLakeStorage_01_accountKey": {
 			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'GitHub_linked'"
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage_01'"
 		},
-		"GitHub_linkedservice_credential": {
-			"type": "secureString",
-			"metadata": "Secure string for 'credential' of 'GitHub_linkedservice'"
-		},
-		"GitHub_linked_properties_typeProperties_url": {
+		"AzureDataLakeStorage_01_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://jeshustorageaccount.dfs.core.windows.net/"
-		},
-		"GitHub_linkedservice_properties_typeProperties_username": {
-			"type": "string",
-			"defaultValue": "gunesettyjeshwanth1436-alt"
 		},
 		"containerUri": {
 			"type": "string",
@@ -50,17 +42,11 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"GitHub_linked_accountKey": {
-						"value": "[parameters('GitHub_linked_accountKey')]"
+					"AzureDataLakeStorage_01_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage_01_accountKey')]"
 					},
-					"GitHub_linkedservice_credential": {
-						"value": "[parameters('GitHub_linkedservice_credential')]"
-					},
-					"GitHub_linked_properties_typeProperties_url": {
-						"value": "[parameters('GitHub_linked_properties_typeProperties_url')]"
-					},
-					"GitHub_linkedservice_properties_typeProperties_username": {
-						"value": "[parameters('GitHub_linkedservice_properties_typeProperties_username')]"
+					"AzureDataLakeStorage_01_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage_01_properties_typeProperties_url')]"
 					}
 				}
 			},
