@@ -52,8 +52,14 @@
 						"referenceName": "DS_ADLS_FILE_DYNAMICALLY",
 						"type": "DatasetReference",
 						"parameters": {
-							"FolderName": "raw_folder",
-							"FileName": "weather.csv"
+							"FolderName": {
+								"value": "@pipeline().parameters.SourceFolder",
+								"type": "Expression"
+							},
+							"FileName": {
+								"value": "@pipeline().parameters.SourceFileName",
+								"type": "Expression"
+							}
 						}
 					}
 				],
@@ -62,13 +68,33 @@
 						"referenceName": "DS_ADLS_FILE_DYNAMICALLY",
 						"type": "DatasetReference",
 						"parameters": {
-							"FolderName": "Archive-folder",
-							"FileName": "Weathercopiedfiles"
+							"FolderName": {
+								"value": "@pipeline().parameters.TargetFolder",
+								"type": "Expression"
+							},
+							"FileName": {
+								"value": "@pipeline().parameters.TargetFileName",
+								"type": "Expression"
+							}
 						}
 					}
 				]
 			}
 		],
+		"parameters": {
+			"SourceFolder": {
+				"type": "string"
+			},
+			"TargetFolder": {
+				"type": "string"
+			},
+			"SourceFileName": {
+				"type": "string"
+			},
+			"TargetFileName": {
+				"type": "string"
+			}
+		},
 		"folder": {
 			"name": "DATA_MIGRATION_TASKS"
 		},
