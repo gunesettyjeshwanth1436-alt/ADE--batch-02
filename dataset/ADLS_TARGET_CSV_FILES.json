@@ -1,0 +1,27 @@
+{
+	"name": "ADLS_TARGET_CSV_FILES",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage_01",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "ADLS_COPY_DATA_FILES"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "weather.csv",
+				"folderPath": "raw_folder",
+				"fileSystem": "raw-dataset"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
