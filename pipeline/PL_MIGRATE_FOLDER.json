@@ -33,7 +33,7 @@
 				}
 			},
 			{
-				"name": "ForEachFile",
+				"name": "ForEachdatafile",
 				"type": "ForEach",
 				"dependsOn": [
 					{
@@ -43,7 +43,6 @@
 						]
 					}
 				],
-				"userProperties": [],
 				"typeProperties": {
 					"items": {
 						"value": "@activity('Get Metadatainfo').output.childItems",
@@ -52,7 +51,7 @@
 					"isSequential": true,
 					"activities": [
 						{
-							"name": "CopyEachFile",
+							"name": "Copydatafiles",
 							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
@@ -100,7 +99,7 @@
 									"referenceName": "DS_BINARY_COPY_FILES",
 									"type": "DatasetReference",
 									"parameters": {
-										"Folder": "Ready_data_sets",
+										"Folder": "ready_dataset",
 										"Files": {
 											"value": "@item().name",
 											"type": "Expression"
@@ -108,45 +107,6 @@
 									}
 								}
 							]
-						},
-						{
-							"name": "Deletefile",
-							"type": "Delete",
-							"dependsOn": [
-								{
-									"activity": "CopyEachFile",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"policy": {
-								"timeout": "0.12:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"dataset": {
-									"referenceName": "DS_BINARY_COPY_FILES",
-									"type": "DatasetReference",
-									"parameters": {
-										"Folder": "raw_folder",
-										"Files": {
-											"value": "@item().name",
-											"type": "Expression"
-										}
-									}
-								},
-								"enableLogging": false,
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								}
-							}
 						}
 					]
 				}
