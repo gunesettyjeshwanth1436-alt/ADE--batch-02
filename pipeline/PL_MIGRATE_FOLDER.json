@@ -107,6 +107,52 @@
 									}
 								}
 							]
+						},
+						{
+							"name": "Deletefiles",
+							"type": "Delete",
+							"dependsOn": [
+								{
+									"activity": "Copydatafiles",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"dataset": {
+									"referenceName": "DS_BINARY_COPY_FILES",
+									"type": "DatasetReference",
+									"parameters": {
+										"Folder": "raw_folder",
+										"Files": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
+								},
+								"logStorageSettings": {
+									"linkedServiceName": {
+										"referenceName": "AzureDataLakeStorage_01",
+										"type": "LinkedServiceReference"
+									},
+									"path": "raw-dataset/raw_folder"
+								},
+								"enableLogging": true,
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							}
 						}
 					]
 				}
