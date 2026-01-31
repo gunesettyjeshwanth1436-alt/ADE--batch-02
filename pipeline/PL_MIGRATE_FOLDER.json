@@ -24,6 +24,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -51,7 +52,7 @@
 					"isSequential": true,
 					"activities": [
 						{
-							"name": "Copy data1",
+							"name": "CopyEachFile",
 							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
@@ -63,7 +64,88 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
+								"source": {
+									"type": "BinarySource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true
+									},
+									"formatSettings": {
+										"type": "BinaryReadSettings"
+									}
+								},
+								"sink": {
+									"type": "BinarySink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									}
+								},
 								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "DS_BINARY_COPY_FILES",
+									"type": "DatasetReference",
+									"parameters": {
+										"Folder": "raw_folder",
+										"Files": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DS_BINARY_COPY_FILES",
+									"type": "DatasetReference",
+									"parameters": {
+										"Folder": "Ready_data_sets",
+										"Files": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						},
+						{
+							"name": "Deletefile",
+							"type": "Delete",
+							"dependsOn": [
+								{
+									"activity": "CopyEachFile",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"dataset": {
+									"referenceName": "DS_BINARY_COPY_FILES",
+									"type": "DatasetReference",
+									"parameters": {
+										"Folder": "raw_folder",
+										"Files": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
+								},
+								"enableLogging": false,
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
 							}
 						}
 					]
