@@ -38,7 +38,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_ADLS_SOURCE_CSV')]",
+			"name": "[concat(parameters('factoryName'), '/ADLS_SOURCE_CSV_FILES')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -47,14 +47,14 @@
 					"type": "LinkedServiceReference"
 				},
 				"folder": {
-					"name": "ADLS_CONTAINER"
+					"name": "ADLS_COPY_DATA_FILES"
 				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "iris.csv",
+						"fileName": "weather.csv",
 						"folderPath": "raw_folder",
 						"fileSystem": "raw-dataset"
 					},
@@ -70,7 +70,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_ADLS_TARGET_CSV')]",
+			"name": "[concat(parameters('factoryName'), '/ADLS_TARGET_CSV_FILES')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -79,15 +79,15 @@
 					"type": "LinkedServiceReference"
 				},
 				"folder": {
-					"name": "ADLS_CONTAINER"
+					"name": "ADLS_COPY_DATA_FILES"
 				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "COPIED_EMP_DS",
-						"folderPath": "Archive-folder",
+						"fileName": "weather.csv",
+						"folderPath": "raw_folder",
 						"fileSystem": "raw-dataset"
 					},
 					"columnDelimiter": ",",
@@ -102,13 +102,13 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/PL_COPY_CSV_FILE')]",
+			"name": "[concat(parameters('factoryName'), '/ADLS_COPY_PL_CSV')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy_CSV_FILE",
+						"name": "COPY_CSV_FILES",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -145,68 +145,6 @@
 							"enableStaging": false,
 							"translator": {
 								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "sepal.length",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "sepal.length",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "sepal.width",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "sepal.width",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "petal.length",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "petal.length",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "petal.width",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "petal.width",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "variety",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "variety",
-											"type": "String",
-											"physicalType": "String"
-										}
-									}
-								],
 								"typeConversion": true,
 								"typeConversionSettings": {
 									"allowDataTruncation": true,
@@ -216,14 +154,14 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "DS_ADLS_SOURCE_CSV",
+								"referenceName": "ADLS_SOURCE_CSV_FILES",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "DS_ADLS_TARGET_CSV",
+								"referenceName": "ADLS_TARGET_CSV_FILES",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -234,13 +172,13 @@
 					"elapsedTimeMetric": {}
 				},
 				"folder": {
-					"name": "DATA_MIGRATION_TASKS"
+					"name": "DATA_MIGRATION_FILES"
 				},
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DS_ADLS_SOURCE_CSV')]",
-				"[concat(variables('factoryId'), '/datasets/DS_ADLS_TARGET_CSV')]"
+				"[concat(variables('factoryId'), '/datasets/ADLS_SOURCE_CSV_FILES')]",
+				"[concat(variables('factoryId'), '/datasets/ADLS_TARGET_CSV_FILES')]"
 			]
 		}
 	]
