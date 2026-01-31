@@ -222,7 +222,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Get Metadatainfo",
+						"name": "Get Metadata info",
 						"type": "GetMetadata",
 						"dependsOn": [],
 						"policy": {
@@ -244,7 +244,6 @@
 							],
 							"storeSettings": {
 								"type": "AzureBlobStorageReadSettings",
-								"recursive": true,
 								"enablePartitionDiscovery": false
 							},
 							"formatSettings": {
@@ -253,28 +252,26 @@
 						}
 					},
 					{
-						"name": "ForEachdatafile",
+						"name": "ForEachfile",
 						"type": "ForEach",
 						"dependsOn": [
 							{
-								"activity": "Get Metadatainfo",
+								"activity": "Get Metadata info",
 								"dependencyConditions": [
 									"Succeeded"
 								]
 							}
 						],
-						"userProperties": [
-							{}
-						],
+						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@activity('Get Metadatainfo').output.childItems",
+								"value": "@activity('Get Metadata info').output.childItems",
 								"type": "Expression"
 							},
 							"isSequential": true,
 							"activities": [
 								{
-									"name": "Copyeachfile",
+									"name": "Copy datafiles",
 									"type": "Copy",
 									"dependsOn": [],
 									"policy": {
@@ -322,7 +319,7 @@
 											"referenceName": "DS_BINARY_COPY_FILES",
 											"type": "DatasetReference",
 											"parameters": {
-												"Folder": "ready_dataset",
+												"Folder": "Ready_datafiles",
 												"Files": {
 													"value": "@item().name",
 													"type": "Expression"
@@ -336,7 +333,7 @@
 									"type": "Delete",
 									"dependsOn": [
 										{
-											"activity": "Copyeachfile",
+											"activity": "Copy datafiles",
 											"dependencyConditions": [
 												"Succeeded"
 											]
@@ -384,8 +381,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_BINARY_DS')]",
-				"[concat(variables('factoryId'), '/datasets/DS_BINARY_COPY_FILES')]",
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage_01')]"
+				"[concat(variables('factoryId'), '/datasets/DS_BINARY_COPY_FILES')]"
 			]
 		},
 		{
