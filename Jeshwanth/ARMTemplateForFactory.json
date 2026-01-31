@@ -362,14 +362,7 @@
 												}
 											}
 										},
-										"logStorageSettings": {
-											"linkedServiceName": {
-												"referenceName": "AzureDataLakeStorage_01",
-												"type": "LinkedServiceReference"
-											},
-											"path": "raw-dataset/raw_folder"
-										},
-										"enableLogging": true,
+										"enableLogging": false,
 										"storeSettings": {
 											"type": "AzureBlobStorageReadSettings",
 											"recursive": true,
