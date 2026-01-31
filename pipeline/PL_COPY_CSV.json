@@ -1,5 +1,5 @@
 {
-	"name": "ADLS_COPY_PL_CSV",
+	"name": "PL_COPY_CSV",
 	"properties": {
 		"activities": [
 			{
@@ -62,7 +62,7 @@
 			}
 		],
 		"folder": {
-			"name": "DATA_MIGRATION_FILES"
+			"name": "DATA_MIGRATION_TASKS"
 		},
 		"annotations": []
 	}

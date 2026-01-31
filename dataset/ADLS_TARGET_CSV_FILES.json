@@ -6,7 +6,7 @@
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
-			"name": "ADLS_COPY_DATA_FILES"
+			"name": "ADLS_CONTAINER"
 		},
 		"annotations": [],
 		"type": "DelimitedText",
