@@ -1,0 +1,17 @@
+{
+	"name": "DS_BINARY_COPY_FILES",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage_01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "raw-dataset"
+			}
+		}
+	}
+}
