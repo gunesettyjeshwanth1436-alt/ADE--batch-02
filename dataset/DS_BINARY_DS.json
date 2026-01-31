@@ -1,0 +1,20 @@
+{
+	"name": "DS_BINARY_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage_01",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "ADLS_CONTAINER"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "raw-dataset"
+			}
+		}
+	}
+}
