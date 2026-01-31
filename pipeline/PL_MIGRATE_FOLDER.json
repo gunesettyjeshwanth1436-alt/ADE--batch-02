@@ -51,7 +51,7 @@
 					"isSequential": true,
 					"activities": [
 						{
-							"name": "Copydatafiles",
+							"name": "Copyeachfile",
 							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
@@ -113,7 +113,7 @@
 							"type": "Delete",
 							"dependsOn": [
 								{
-									"activity": "Copydatafiles",
+									"activity": "Copyeachfile",
 									"dependencyConditions": [
 										"Succeeded"
 									]
