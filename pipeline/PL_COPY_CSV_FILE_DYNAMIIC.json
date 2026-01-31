@@ -83,16 +83,20 @@
 		],
 		"parameters": {
 			"SourceFolder": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "raw_folder"
 			},
 			"TargetFolder": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "Arcive_DS"
 			},
 			"SourceFileName": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "employment_status.csv"
 			},
 			"TargetFileName": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "EmploymentFileCopied"
 			}
 		},
 		"folder": {
