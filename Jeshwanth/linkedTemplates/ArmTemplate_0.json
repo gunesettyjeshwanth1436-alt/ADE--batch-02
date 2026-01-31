@@ -447,7 +447,7 @@
 						}
 					},
 					{
-						"name": "ForEachFile",
+						"name": "ForEachdatafile",
 						"type": "ForEach",
 						"dependsOn": [
 							{
@@ -457,7 +457,9 @@
 								]
 							}
 						],
-						"userProperties": [],
+						"userProperties": [
+							{}
+						],
 						"typeProperties": {
 							"items": {
 								"value": "@activity('Get Metadatainfo').output.childItems",
@@ -466,7 +468,7 @@
 							"isSequential": true,
 							"activities": [
 								{
-									"name": "CopyEachFile",
+									"name": "Copydatafiles",
 									"type": "Copy",
 									"dependsOn": [],
 									"policy": {
@@ -514,7 +516,7 @@
 											"referenceName": "DS_BINARY_COPY_FILES",
 											"type": "DatasetReference",
 											"parameters": {
-												"Folder": "Ready_data_sets",
+												"Folder": "ready_dataset",
 												"Files": {
 													"value": "@item().name",
 													"type": "Expression"
@@ -524,11 +526,11 @@
 									]
 								},
 								{
-									"name": "Deletefile",
+									"name": "Deletefiles",
 									"type": "Delete",
 									"dependsOn": [
 										{
-											"activity": "CopyEachFile",
+											"activity": "Copydatafiles",
 											"dependencyConditions": [
 												"Succeeded"
 											]
@@ -554,7 +556,14 @@
 												}
 											}
 										},
-										"enableLogging": false,
+										"logStorageSettings": {
+											"linkedServiceName": {
+												"referenceName": "AzureDataLakeStorage_01",
+												"type": "LinkedServiceReference"
+											},
+											"path": "raw-dataset/raw_folder"
+										},
+										"enableLogging": true,
 										"storeSettings": {
 											"type": "AzureBlobStorageReadSettings",
 											"recursive": true,
