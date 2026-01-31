@@ -5,11 +5,30 @@
 			"referenceName": "AzureDataLakeStorage_01",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"Folder": {
+				"type": "string"
+			},
+			"Files": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "ADLS_CONTAINER"
+		},
 		"annotations": [],
 		"type": "Binary",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().Files",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().Folder",
+					"type": "Expression"
+				},
 				"fileSystem": "raw-dataset"
 			}
 		}
