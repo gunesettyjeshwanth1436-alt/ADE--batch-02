@@ -8,8 +8,20 @@
 		"AzureDataLakeStorage_01_accountKey": {
 			"value": ""
 		},
+		"LS_AZURE_SQL_DB_password": {
+			"value": ""
+		},
 		"AzureDataLakeStorage_01_properties_typeProperties_url": {
 			"value": "https://jeshustorageaccount.dfs.core.windows.net/"
+		},
+		"LS_AZURE_SQL_DB_properties_typeProperties_server": {
+			"value": "rainbow-servers.database.windows.net"
+		},
+		"LS_AZURE_SQL_DB_properties_typeProperties_database": {
+			"value": "rainbow-DB"
+		},
+		"LS_AZURE_SQL_DB_properties_typeProperties_userName": {
+			"value": "rainbow-DB"
 		},
 		"containerUri": {
 			"value": ""
