@@ -205,7 +205,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"folderPath": "raw_folder",
+						"folderPath": "Raw_folder",
 						"fileSystem": "raw-dataset"
 					}
 				}
@@ -438,6 +438,7 @@
 							],
 							"storeSettings": {
 								"type": "AzureBlobStorageReadSettings",
+								"recursive": true,
 								"enablePartitionDiscovery": false
 							},
 							"formatSettings": {
@@ -500,7 +501,7 @@
 											"referenceName": "DS_BINARY_COPY_FILES",
 											"type": "DatasetReference",
 											"parameters": {
-												"Folder": "raw_folder",
+												"Folder": "Raw_folder",
 												"Files": {
 													"value": "@item().name",
 													"type": "Expression"
@@ -546,7 +547,7 @@
 											"referenceName": "DS_BINARY_COPY_FILES",
 											"type": "DatasetReference",
 											"parameters": {
-												"Folder": "raw_folder",
+												"Folder": "Raw_folder",
 												"Files": {
 													"value": "@item().name",
 													"type": "Expression"
