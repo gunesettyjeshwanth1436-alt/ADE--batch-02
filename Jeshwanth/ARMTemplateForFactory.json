@@ -307,7 +307,7 @@
 											"referenceName": "DS_BINARY_COPY_FILES",
 											"type": "DatasetReference",
 											"parameters": {
-												"Folder": "Raw_folder",
+												"Folder": "Raw_Folder",
 												"Files": {
 													"value": "@item().name",
 													"type": "Expression"
@@ -353,7 +353,7 @@
 											"referenceName": "DS_BINARY_COPY_FILES",
 											"type": "DatasetReference",
 											"parameters": {
-												"Folder": "Raw_folder",
+												"Folder": "Raw_Folder",
 												"Files": {
 													"value": "@item().name",
 													"type": "Expression"
@@ -553,7 +553,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"folderPath": "Raw_folder",
+						"folderPath": "Raw_Folder",
 						"fileSystem": "raw-dataset"
 					}
 				}
