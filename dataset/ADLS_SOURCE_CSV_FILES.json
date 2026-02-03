@@ -5,6 +5,11 @@
 			"referenceName": "AzureDataLakeStorage_01",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"FILENAME": {
+				"type": "string"
+			}
+		},
 		"folder": {
 			"name": "ADLS_CONTAINER"
 		},
@@ -13,8 +18,11 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "weather.csv",
-				"folderPath": "raw_folder",
+				"fileName": {
+					"value": "@dataset().FILENAME",
+					"type": "Expression"
+				},
+				"folderPath": "Raw_data",
 				"fileSystem": "raw-dataset"
 			},
 			"columnDelimiter": ",",
