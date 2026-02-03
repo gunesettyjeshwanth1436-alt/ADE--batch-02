@@ -21,8 +21,7 @@
 				"folderPath": {
 					"value": "@dataset().FOLDERNAME",
 					"type": "Expression"
-				},
-				"fileSystem": "raw-dataset"
+				}
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
