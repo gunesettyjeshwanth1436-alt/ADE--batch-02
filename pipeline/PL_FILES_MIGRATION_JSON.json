@@ -1,5 +1,5 @@
 {
-	"name": "DATA_FILES_MIGRATION",
+	"name": "PL_FILES_MIGRATION_JSON",
 	"properties": {
 		"activities": [
 			{
@@ -135,6 +135,9 @@
 				}
 			}
 		],
+		"folder": {
+			"name": "DATA_FILES_MIGRATION"
+		},
 		"annotations": []
 	}
 }
