@@ -1,0 +1,17 @@
+{
+	"name": "PL_SQL_TO_CSV",
+	"properties": {
+		"parameters": {
+			"P_SCHEMATABLE": {
+				"type": "string"
+			},
+			"P_SCHEMANAME": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "DATA_MIGRATE_SQL_FILES"
+		},
+		"annotations": []
+	}
+}

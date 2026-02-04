@@ -1,0 +1,27 @@
+{
+	"name": "DS_SQL_TABLE_FILES",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_AZURE_SQL_DB",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"SCHEMANAME": {
+				"type": "string"
+			},
+			"SCHEMATABLE": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "DS_SQL_FILES"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "SalesLT",
+			"table": ""
+		}
+	}
+}

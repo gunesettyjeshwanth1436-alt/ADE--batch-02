@@ -1,0 +1,36 @@
+{
+	"name": "DS_SQL_TO_CSV",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage_01",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"FILENAME": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "DS_SQL_FILES"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "Cleaned_data",
+				"fileSystem": "raw-dataset"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Age",
+				"type": "String"
+			}
+		]
+	}
+}
