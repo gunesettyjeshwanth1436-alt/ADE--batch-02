@@ -106,8 +106,15 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "DS_BINARY_DS",
-									"type": "DatasetReference"
+									"referenceName": "DS_BINARY_COPY_FILES",
+									"type": "DatasetReference",
+									"parameters": {
+										"Folder": "Raw_data",
+										"Files": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
 								}
 							],
 							"outputs": [
