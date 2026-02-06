@@ -32,7 +32,7 @@
 			"recurrence": {
 				"frequency": "Minute",
 				"interval": 2,
-				"startTime": "2026-02-04T12:03:00",
+				"startTime": "2026-02-04T12:09:00",
 				"endTime": "2026-02-04T12:10:00",
 				"timeZone": "India Standard Time"
 			}
