@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": "weather.csv_2",
 				"folderPath": "copied_data_1",
 				"fileSystem": "raw-dataset"
 			},
