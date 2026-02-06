@@ -1,0 +1,31 @@
+{
+	"name": "trigger1",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "PL_COPY_CSV_FILE_DYNAMIIC",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"SourceFolder": "Raw_data",
+					"TargetFolder": "usIng_trigger_copied",
+					"SourceFileName": "weather.csv",
+					"TargetFileName": "WEATHER"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 2,
+				"startTime": "2026-02-06T11:09:00",
+				"endTime": "2026-02-06T05:36:00",
+				"timeZone": "India Standard Time"
+			}
+		}
+	}
+}
