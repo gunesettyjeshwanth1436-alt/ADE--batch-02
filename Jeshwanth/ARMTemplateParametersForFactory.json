@@ -22,6 +22,24 @@
 		},
 		"LS_AZURE_SQL_DB_properties_typeProperties_userName": {
 			"value": "rainbow-DB"
+		},
+		"SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_SourceFolder": {
+			"value": "Raw_data"
+		},
+		"SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_TargetFolder": {
+			"value": "usIng_trigger_copied"
+		},
+		"SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_SourceFileName": {
+			"value": "weather.csv"
+		},
+		"SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_TargetFileName": {
+			"value": "WEATHER"
+		},
+		"SCHEDULE_TRIGGER_properties_PL_TRIGGERS_parameters_FOLDERPATH": {
+			"value": "Raw_data"
+		},
+		"SCHEDULE_TRIGGER_properties_PL_TRIGGERS_parameters_FILE_NAME": {
+			"value": "weather.csv"
 		}
 	}
 }

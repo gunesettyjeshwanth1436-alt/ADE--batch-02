@@ -31,6 +31,30 @@
 			"type": "string",
 			"defaultValue": "rainbow-DB"
 		},
+		"SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_SourceFolder": {
+			"type": "string",
+			"defaultValue": "Raw_data"
+		},
+		"SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_TargetFolder": {
+			"type": "string",
+			"defaultValue": "usIng_trigger_copied"
+		},
+		"SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_SourceFileName": {
+			"type": "string",
+			"defaultValue": "weather.csv"
+		},
+		"SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_TargetFileName": {
+			"type": "string",
+			"defaultValue": "WEATHER"
+		},
+		"SCHEDULE_TRIGGER_properties_PL_TRIGGERS_parameters_FOLDERPATH": {
+			"type": "string",
+			"defaultValue": "Raw_data"
+		},
+		"SCHEDULE_TRIGGER_properties_PL_TRIGGERS_parameters_FILE_NAME": {
+			"type": "string",
+			"defaultValue": "weather.csv"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -75,6 +99,24 @@
 					},
 					"LS_AZURE_SQL_DB_properties_typeProperties_userName": {
 						"value": "[parameters('LS_AZURE_SQL_DB_properties_typeProperties_userName')]"
+					},
+					"SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_SourceFolder": {
+						"value": "[parameters('SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_SourceFolder')]"
+					},
+					"SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_TargetFolder": {
+						"value": "[parameters('SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_TargetFolder')]"
+					},
+					"SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_SourceFileName": {
+						"value": "[parameters('SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_SourceFileName')]"
+					},
+					"SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_TargetFileName": {
+						"value": "[parameters('SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_TargetFileName')]"
+					},
+					"SCHEDULE_TRIGGER_properties_PL_TRIGGERS_parameters_FOLDERPATH": {
+						"value": "[parameters('SCHEDULE_TRIGGER_properties_PL_TRIGGERS_parameters_FOLDERPATH')]"
+					},
+					"SCHEDULE_TRIGGER_properties_PL_TRIGGERS_parameters_FILE_NAME": {
+						"value": "[parameters('SCHEDULE_TRIGGER_properties_PL_TRIGGERS_parameters_FILE_NAME')]"
 					}
 				}
 			},

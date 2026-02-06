@@ -30,6 +30,30 @@
 		"LS_AZURE_SQL_DB_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "rainbow-DB"
+		},
+		"SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_SourceFolder": {
+			"type": "string",
+			"defaultValue": "Raw_data"
+		},
+		"SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_TargetFolder": {
+			"type": "string",
+			"defaultValue": "usIng_trigger_copied"
+		},
+		"SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_SourceFileName": {
+			"type": "string",
+			"defaultValue": "weather.csv"
+		},
+		"SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_TargetFileName": {
+			"type": "string",
+			"defaultValue": "WEATHER"
+		},
+		"SCHEDULE_TRIGGER_properties_PL_TRIGGERS_parameters_FOLDERPATH": {
+			"type": "string",
+			"defaultValue": "Raw_data"
+		},
+		"SCHEDULE_TRIGGER_properties_PL_TRIGGERS_parameters_FILE_NAME": {
+			"type": "string",
+			"defaultValue": "weather.csv"
 		}
 	},
 	"variables": {
@@ -84,6 +108,35 @@
 				"typeProperties": {}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_ADLS_COPIED_FILES')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage_01",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "weather.csv_2",
+						"folderPath": "copied_data_1",
+						"fileSystem": "raw-dataset"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage_01')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/DS_ADLS_FILE_DYNAMICALLY')]",
@@ -387,6 +440,157 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/PL_FILES_MIGRATION')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Get MetadataINFO",
+						"type": "GetMetadata",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "DS_BINARY_DS",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"fieldList": [
+								"childItems"
+							],
+							"storeSettings": {
+								"type": "AzureBlobStorageReadSettings",
+								"recursive": true,
+								"enablePartitionDiscovery": false
+							},
+							"formatSettings": {
+								"type": "BinaryReadSettings"
+							}
+						}
+					},
+					{
+						"name": "ForEachfile",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Get MetadataINFO",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Get MetadataINFO').output",
+								"type": "Expression"
+							},
+							"batchCount": 10,
+							"activities": [
+								{
+									"name": "Switch1",
+									"type": "Switch",
+									"state": "Inactive",
+									"onInactiveMarkAs": "Succeeded",
+									"dependsOn": [
+										{
+											"activity": "Set variable1",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"userProperties": [],
+									"typeProperties": {
+										"on": {
+											"value": "@split(item().name, '.')[1]",
+											"type": "Expression"
+										},
+										"cases": [],
+										"defaultActivities": [
+											{
+												"name": "CopyCSV",
+												"type": "Copy",
+												"dependsOn": [],
+												"policy": {
+													"timeout": "0.12:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"source": {
+														"type": "BinarySource",
+														"storeSettings": {
+															"type": "AzureBlobFSReadSettings",
+															"recursive": true
+														},
+														"formatSettings": {
+															"type": "BinaryReadSettings"
+														}
+													},
+													"enableStaging": false
+												},
+												"inputs": [
+													{
+														"referenceName": "DS_BINARY_COPY_FILES",
+														"type": "DatasetReference",
+														"parameters": {
+															"Folder": "Raw_data"
+														}
+													}
+												]
+											}
+										]
+									}
+								},
+								{
+									"name": "Set variable1",
+									"type": "SetVariable",
+									"dependsOn": [],
+									"policy": {
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "FileNameTest",
+										"value": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"variables": {
+					"FileNameTest": {
+						"type": "String"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_BINARY_DS')]",
+				"[concat(variables('factoryId'), '/datasets/DS_BINARY_COPY_FILES')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PL_MIGRATE_FOLDER')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -557,14 +761,14 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DATA_FILES_MIGRATION')]",
+			"name": "[concat(parameters('factoryName'), '/PL_TRIGGERS')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "Get MetadataJson",
-						"type": "GetMetadata",
+						"name": "Copy data1",
+						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
@@ -575,135 +779,126 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"dataset": {
-								"referenceName": "DS_BINARY_DS",
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_ADLS_FILE_DYNAMICALLY",
+								"type": "DatasetReference",
+								"parameters": {
+									"FolderName": {
+										"value": "@pipeline().parameters.FOLDERPATH",
+										"type": "Expression"
+									},
+									"FileName": {
+										"value": "@pipeline().parameters.FILE_NAME",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_ADLS_COPIED_FILES",
 								"type": "DatasetReference",
 								"parameters": {}
-							},
-							"fieldList": [
-								"childItems"
-							],
-							"storeSettings": {
-								"type": "AzureBlobStorageReadSettings",
-								"enablePartitionDiscovery": false
-							},
-							"formatSettings": {
-								"type": "BinaryReadSettings"
 							}
-						}
-					},
-					{
-						"name": "FilterJSONFiles",
-						"type": "Filter",
-						"dependsOn": [
-							{
-								"activity": "Get MetadataJson",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Get MetadataJson').output.childItems",
-								"type": "Expression"
-							},
-							"condition": {
-								"value": "@endswith(item().name, '.json')",
-								"type": "Expression"
-							}
-						}
-					},
-					{
-						"name": "ForEachJsonFile",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "FilterJSONFiles",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('FilterJSONFiles').output.Value",
-								"type": "Expression"
-							},
-							"batchCount": 2,
-							"activities": [
-								{
-									"name": "Copy dataJsonFiles",
-									"type": "Copy",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "0.12:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "BinarySource",
-											"storeSettings": {
-												"type": "AzureBlobFSReadSettings",
-												"recursive": true
-											},
-											"formatSettings": {
-												"type": "BinaryReadSettings"
-											}
-										},
-										"sink": {
-											"type": "BinarySink",
-											"storeSettings": {
-												"type": "AzureBlobFSWriteSettings"
-											}
-										},
-										"enableStaging": false
-									},
-									"inputs": [
-										{
-											"referenceName": "DS_BINARY_COPY_FILES",
-											"type": "DatasetReference",
-											"parameters": {
-												"Folder": "Raw_data",
-												"Files": {
-													"value": "@item().name",
-													"type": "Expression"
-												}
-											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "DS_BINARY_COPY_FILES",
-											"type": "DatasetReference",
-											"parameters": {
-												"Folder": "Json_Folder",
-												"Files": {
-													"value": "@item().name",
-													"type": "Expression"
-												}
-											}
-										}
-									]
-								}
-							]
-						}
+						]
 					}
 				],
 				"policy": {
 					"elapsedTimeMetric": {}
 				},
+				"parameters": {
+					"FOLDERPATH": {
+						"type": "string"
+					},
+					"FILE_NAME": {
+						"type": "string"
+					}
+				},
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DS_BINARY_DS')]",
-				"[concat(variables('factoryId'), '/datasets/DS_BINARY_COPY_FILES')]"
+				"[concat(variables('factoryId'), '/datasets/DS_ADLS_FILE_DYNAMICALLY')]",
+				"[concat(variables('factoryId'), '/datasets/DS_ADLS_COPIED_FILES')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SCHEDULE_TRIGGER')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "PL_COPY_CSV_FILE_DYNAMIIC",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"SourceFolder": "[parameters('SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_SourceFolder')]",
+							"TargetFolder": "[parameters('SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_TargetFolder')]",
+							"SourceFileName": "[parameters('SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_SourceFileName')]",
+							"TargetFileName": "[parameters('SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_TargetFileName')]"
+						}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "PL_TRIGGERS",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"FOLDERPATH": "[parameters('SCHEDULE_TRIGGER_properties_PL_TRIGGERS_parameters_FOLDERPATH')]",
+							"FILE_NAME": "[parameters('SCHEDULE_TRIGGER_properties_PL_TRIGGERS_parameters_FILE_NAME')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 2,
+						"startTime": "2026-02-04T12:03:00",
+						"endTime": "2026-02-04T12:10:00",
+						"timeZone": "India Standard Time"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PL_COPY_CSV_FILE_DYNAMIIC')]",
+				"[concat(variables('factoryId'), '/pipelines/PL_TRIGGERS')]"
 			]
 		}
 	]
