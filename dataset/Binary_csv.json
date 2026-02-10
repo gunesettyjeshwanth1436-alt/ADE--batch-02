@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "csv_Files",
+				"folderPath": "JSON_Files",
 				"fileSystem": "raw-dataset"
 			}
 		}
