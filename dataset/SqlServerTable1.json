@@ -1,0 +1,19 @@
+{
+	"name": "SqlServerTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQLSERVER_ONPREM",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DS_ON_PREM_TO_TARGET_FILES"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Departments"
+		}
+	}
+}
