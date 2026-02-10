@@ -37,32 +37,8 @@
 							"fileExtension": ".txt"
 						}
 					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
+					"enableStaging": false
 				},
-				"inputs": [
-					{
-						"referenceName": "DS_ADLS_FILE_DYNAMICALLY",
-						"type": "DatasetReference",
-						"parameters": {
-							"FolderName": {
-								"value": "@pipeline().parameters.FOLDERPATH",
-								"type": "Expression"
-							},
-							"FileName": {
-								"value": "@pipeline().parameters.FILE_NAME",
-								"type": "Expression"
-							}
-						}
-					}
-				],
 				"outputs": [
 					{
 						"referenceName": "DS_ADLS_COPIED_FILES",

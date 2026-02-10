@@ -15,10 +15,6 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"dataset": {
-						"referenceName": "DS_BINARY_DS",
-						"type": "DatasetReference"
-					},
 					"fieldList": [
 						"childItems"
 					],
@@ -81,33 +77,7 @@
 									}
 								},
 								"enableStaging": false
-							},
-							"inputs": [
-								{
-									"referenceName": "DS_BINARY_COPY_FILES",
-									"type": "DatasetReference",
-									"parameters": {
-										"Folder": "Raw_Folder",
-										"Files": {
-											"value": "@item().name",
-											"type": "Expression"
-										}
-									}
-								}
-							],
-							"outputs": [
-								{
-									"referenceName": "DS_BINARY_COPY_FILES",
-									"type": "DatasetReference",
-									"parameters": {
-										"Folder": "Ready_datafiles",
-										"Files": {
-											"value": "@item().name",
-											"type": "Expression"
-										}
-									}
-								}
-							]
+							}
 						},
 						{
 							"name": "Deletefiles",
@@ -129,17 +99,6 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"dataset": {
-									"referenceName": "DS_BINARY_COPY_FILES",
-									"type": "DatasetReference",
-									"parameters": {
-										"Folder": "Raw_Folder",
-										"Files": {
-											"value": "@item().name",
-											"type": "Expression"
-										}
-									}
-								},
 								"enableLogging": false,
 								"storeSettings": {
 									"type": "AzureBlobStorageReadSettings",

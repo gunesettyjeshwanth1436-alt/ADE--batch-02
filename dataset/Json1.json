@@ -1,0 +1,82 @@
+{
+	"name": "Json1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage_01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "Json_Folder",
+				"fileSystem": "raw-dataset"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"fear": {
+					"type": "string"
+				},
+				"chest": {
+					"type": "integer"
+				},
+				"how": {
+					"type": "boolean"
+				},
+				"graph": {
+					"type": "boolean"
+				},
+				"camp": {
+					"type": "integer"
+				},
+				"plural": {
+					"type": "string"
+				},
+				"bow": {
+					"type": "boolean"
+				},
+				"darkness": {
+					"type": "integer"
+				},
+				"proper": {
+					"type": "string"
+				},
+				"worse": {
+					"type": "integer"
+				},
+				"see": {
+					"type": "object",
+					"properties": {
+						"these": {
+							"type": "array",
+							"items": {
+								"type": "integer"
+							}
+						},
+						"star": {
+							"type": "string"
+						},
+						"chief": {
+							"type": "string"
+						},
+						"sugar": {
+							"type": "boolean"
+						},
+						"straight": {
+							"type": "string"
+						},
+						"cake": {
+							"type": "boolean"
+						}
+					}
+				},
+				"tree": {
+					"type": "integer"
+				}
+			}
+		}
+	}
+}
