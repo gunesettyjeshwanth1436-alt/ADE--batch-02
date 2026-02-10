@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'LS_AZURE_SQL_DB'"
 		},
+		"LS_SQLSERVER_ONPREM_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_SQLSERVER_ONPREM'"
+		},
 		"AzureDataLakeStorage_01_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://jeshustorageaccount.dfs.core.windows.net/"
@@ -30,6 +34,18 @@
 		"LS_AZURE_SQL_DB_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "rainbow-DB"
+		},
+		"LS_SQLSERVER_ONPREM_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "DESKTOP-FBJ79AN\\SQLEXPRESS"
+		},
+		"LS_SQLSERVER_ONPREM_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "maan"
+		},
+		"LS_SQLSERVER_ONPREM_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sa"
 		},
 		"SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_SourceFolder": {
 			"type": "string",
@@ -88,6 +104,9 @@
 					"LS_AZURE_SQL_DB_password": {
 						"value": "[parameters('LS_AZURE_SQL_DB_password')]"
 					},
+					"LS_SQLSERVER_ONPREM_password": {
+						"value": "[parameters('LS_SQLSERVER_ONPREM_password')]"
+					},
 					"AzureDataLakeStorage_01_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage_01_properties_typeProperties_url')]"
 					},
@@ -99,6 +118,15 @@
 					},
 					"LS_AZURE_SQL_DB_properties_typeProperties_userName": {
 						"value": "[parameters('LS_AZURE_SQL_DB_properties_typeProperties_userName')]"
+					},
+					"LS_SQLSERVER_ONPREM_properties_typeProperties_server": {
+						"value": "[parameters('LS_SQLSERVER_ONPREM_properties_typeProperties_server')]"
+					},
+					"LS_SQLSERVER_ONPREM_properties_typeProperties_database": {
+						"value": "[parameters('LS_SQLSERVER_ONPREM_properties_typeProperties_database')]"
+					},
+					"LS_SQLSERVER_ONPREM_properties_typeProperties_userName": {
+						"value": "[parameters('LS_SQLSERVER_ONPREM_properties_typeProperties_userName')]"
 					},
 					"SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_SourceFolder": {
 						"value": "[parameters('SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_SourceFolder')]"

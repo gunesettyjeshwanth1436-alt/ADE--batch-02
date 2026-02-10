@@ -11,6 +11,9 @@
 		"LS_AZURE_SQL_DB_password": {
 			"value": ""
 		},
+		"LS_SQLSERVER_ONPREM_password": {
+			"value": ""
+		},
 		"AzureDataLakeStorage_01_properties_typeProperties_url": {
 			"value": "https://jeshustorageaccount.dfs.core.windows.net/"
 		},
@@ -22,6 +25,15 @@
 		},
 		"LS_AZURE_SQL_DB_properties_typeProperties_userName": {
 			"value": "rainbow-DB"
+		},
+		"LS_SQLSERVER_ONPREM_properties_typeProperties_server": {
+			"value": "DESKTOP-FBJ79AN\\SQLEXPRESS"
+		},
+		"LS_SQLSERVER_ONPREM_properties_typeProperties_database": {
+			"value": "maan"
+		},
+		"LS_SQLSERVER_ONPREM_properties_typeProperties_userName": {
+			"value": "sa"
 		},
 		"SCHEDULE_TRIGGER_properties_PL_COPY_CSV_FILE_DYNAMIIC_parameters_SourceFolder": {
 			"value": "Raw_data"
