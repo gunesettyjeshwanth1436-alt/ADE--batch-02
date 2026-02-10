@@ -24,6 +24,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -49,7 +50,7 @@
 						"type": "Expression"
 					},
 					"condition": {
-						"value": "@endswith(item().name,'.json')",
+						"value": "@endswith(item().name,'.txt')",
 						"type": "Expression"
 					}
 				}
@@ -106,11 +107,11 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "Binary_json",
+									"referenceName": "Binary_csv",
 									"type": "DatasetReference",
 									"parameters": {
-										"Folder_name": "Raw_data",
-										"File_Name": {
+										"Folder_name": "copied_data_1",
+										"File_name": {
 											"value": "@item().name",
 											"type": "Expression"
 										}
@@ -119,11 +120,11 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "Binary_json",
+									"referenceName": "Binary_csv",
 									"type": "DatasetReference",
 									"parameters": {
-										"Folder_name": "Json_data",
-										"File_Name": {
+										"Folder_name": "Text_files",
+										"File_name": {
 											"value": "@item().name",
 											"type": "Expression"
 										}
