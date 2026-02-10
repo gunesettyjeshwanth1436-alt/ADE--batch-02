@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "Cleaned_data",
+				"folderPath": "csv_Files",
 				"fileSystem": "raw-dataset"
 			}
 		}
