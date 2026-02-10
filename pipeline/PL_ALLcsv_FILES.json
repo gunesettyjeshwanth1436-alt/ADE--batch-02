@@ -1,5 +1,5 @@
 {
-	"name": "PL_ALLJSON_FILES",
+	"name": "PL_ALLcsv_FILES",
 	"properties": {
 		"activities": [
 			{
@@ -32,8 +32,8 @@
 				}
 			},
 			{
-				"name": "ForEachFiles",
-				"type": "ForEach",
+				"name": "FilterJsonFiles",
+				"type": "Filter",
 				"dependsOn": [
 					{
 						"activity": "Get Metadatainfo",
@@ -48,35 +48,35 @@
 						"value": "@activity('Get Metadatainfo').output.childItems",
 						"type": "Expression"
 					},
+					"condition": {
+						"value": "@endswith(item().name,'.json')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "FilterJsonFiles",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('FilterJsonFiles').output.value",
+						"type": "Expression"
+					},
 					"isSequential": true,
 					"activities": [
 						{
-							"name": "Filter1",
-							"type": "Filter",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"items": {
-									"value": "@item().name",
-									"type": "Expression"
-								},
-								"condition": {
-									"value": "@endswith(item().name, '.csv')",
-									"type": "Expression"
-								}
-							}
-						},
-						{
 							"name": "Copy data1",
 							"type": "Copy",
-							"dependsOn": [
-								{
-									"activity": "Filter1",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
+							"dependsOn": [],
 							"policy": {
 								"timeout": "0.12:00:00",
 								"retry": 0,
@@ -106,14 +106,28 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "DS_ALLBINARY_FILES",
-									"type": "DatasetReference"
+									"referenceName": "Binary_json",
+									"type": "DatasetReference",
+									"parameters": {
+										"Folder_name": "Raw_data",
+										"File_Name": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
 								}
 							],
 							"outputs": [
 								{
-									"referenceName": "Binary_csv",
-									"type": "DatasetReference"
+									"referenceName": "Binary_json",
+									"type": "DatasetReference",
+									"parameters": {
+										"Folder_name": "Json_data",
+										"File_Name": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
