@@ -6,18 +6,6 @@
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "PL_COPY_CSV_FILE_DYNAMIIC",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"SourceFolder": "Raw_data",
-					"TargetFolder": "usIng_trigger_copied",
-					"SourceFileName": "weather.csv",
-					"TargetFileName": "WEATHER"
-				}
-			},
-			{
-				"pipelineReference": {
 					"referenceName": "PL_TRIGGERS",
 					"type": "PipelineReference"
 				},
