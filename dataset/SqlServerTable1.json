@@ -10,10 +10,6 @@
 		},
 		"annotations": [],
 		"type": "SqlServerTable",
-		"schema": [],
-		"typeProperties": {
-			"schema": "dbo",
-			"table": "Locations"
-		}
+		"schema": []
 	}
 }
