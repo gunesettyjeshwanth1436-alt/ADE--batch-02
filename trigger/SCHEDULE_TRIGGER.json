@@ -3,18 +3,7 @@
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
-		"pipelines": [
-			{
-				"pipelineReference": {
-					"referenceName": "PL_TRIGGERS",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"FOLDERPATH": "Raw_data",
-					"FILE_NAME": "weather.csv"
-				}
-			}
-		],
+		"pipelines": [],
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
