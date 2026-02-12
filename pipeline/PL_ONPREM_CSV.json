@@ -23,7 +23,11 @@
 					},
 					"dataset": {
 						"referenceName": "SqlServerTable1",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": ".",
+							"TableName": "."
+						}
 					}
 				}
 			},
@@ -55,7 +59,11 @@
 					},
 					"dataset": {
 						"referenceName": "SqlServerTable1",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": ".",
+							"TableName": "."
+						}
 					}
 				}
 			}
