@@ -15,7 +15,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "copied_data_1",
+				"fileName": "dbo.Departments.txt",
+				"folderPath": "SQL_Tables",
 				"fileSystem": "raw-dataset"
 			},
 			"columnDelimiter": ",",
